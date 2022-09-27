@@ -42,9 +42,17 @@ The file "config.sh" can be used a template configuration file
 SNP File
 --------
 
-The SNP file ("snps" in the configuration file) is a tab-delimited file specifying the genotypes at each SNP for each strain, where "0/0" = REF/REF, "0/1" = "REF/ALT", and "1/1" = "ALT/ALT". The first six columns are the same as the first six columns in a [vcf](http://genome.ucsc.edu/goldenPath/help/vcf.html) file with headers:
+The SNP file ("snps" in the configuration file) is a tab-delimited file specifying the genotypes at each SNP for each strain, where "0/0" = REF/REF, "0/1" = "REF/ALT", and "1/1" = "ALT/ALT". The columns are: the first six columns in a [vcf](http://genome.ucsc.edu/goldenPath/help/vcf.html) file, followed by a column for each strain and a column with the variant ID. 
 
-`X.CHROM	POS	ID	REF	ALT	QUAL`
+The first few lines should look something like:
+
+`X.CHROM	POS	ID	REF	ALT	QUAL	STRAIN_1	STRAIN_2	...	STRAIN_N	VAR
+chr1	3206491	.	G	C	72546.4	0/0	0/0	...	1/1	chr1_3206491
+chr1	3213844	.	G	A	68282.1	0/1	1/1	...	0/0	chr1_3213844
+chr1	3214941	.	A	T	94336	1/1	0/0	...	0/0	chr1_3214941
+...`
+
+The variant ID (VAR) should match the format "X.CHROM_POS".
 
 
 Troubleshooting
