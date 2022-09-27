@@ -42,21 +42,55 @@ The file "config.sh" can be used a template configuration file
 SNP File
 --------
 
-The SNP file ("snps" in the configuration file) is a tab-delimited file specifying the genotypes at each SNP for each strain, where "0/0" = REF/REF, "0/1" = "REF/ALT", and "1/1" = "ALT/ALT". The columns are: the first six columns in a [vcf](http://genome.ucsc.edu/goldenPath/help/vcf.html) file, followed by a column for each strain and a column with the variant ID. 
+The SNP file ("snps" in the configuration file) is a tab-delimited file specifying the genotypes at each SNP for each strain, where 
+
+> "0/0" = REF/REF 
+> "0/1" = "REF/ALT" 
+> "1/1" = "ALT/ALT"
+ 
+The columns are: the first six columns in a [vcf](http://genome.ucsc.edu/goldenPath/help/vcf.html) file, followed by a column for each strain and a column with the variant ID. 
 
 The first few lines should look something like:
 
 ```
-{
 X.CHROM	POS	ID	REF	ALT	QUAL	STRAIN_1	STRAIN_2	...	STRAIN_N	VAR
 chr1	3206491	.	G	C	72546.4	0/0	0/0	...	1/1	chr1_3206491
 chr1	3213844	.	G	A	68282.1	0/1	1/1	...	0/0	chr1_3213844
 chr1	3214941	.	A	T	94336	1/1	0/0	...	0/0	chr1_3214941
 ...
-}
 ```
 
-The variant ID (VAR) should match the format "X.CHROM_POS".
+The "VAR" column should match the format "X.CHROM_POS".
+
+*For BXD Mouse Strains*
+The attached file, strain-D2-SNPs.txt, should work!  
+
+*For Other Strains*
+An SNP File can be generated from a vcf file with strain genotypes using [bcftools](https://samtools.github.io/bcftools/bcftools.html) and the following commands:
+
+```
+bcftools view strains.vcf.gz -i 'TYPE="snp"' |  grep -v ^## > strain-SNPs.txt
+
+# Remove positions with multiple alt alleles
+grep -v "," strain-SNPs.txt > tmp; mv -f tmp strain-SNPs.txt
+```
+
+followed by formatting in R:
+
+```
+snps <- read.delim(file="strain-SNPs.txt", stringsAsFactors=F)
+
+for(i in 10:ncol(snps)){snps[,i] <- gsub("\\:.*","",snps[,i])}
+
+snps$FORMAT <- NULL
+snps$FILTER <- NULL
+snps$INFO <- NULL
+
+snps$VAR <- paste(sep = "_",snps$X.CHROM,snps$POS)
+
+write.table(snps, "strain-SNPs.txt", sep="\t", quote=F, col.names=T, row.names=F)
+```
+
 
 
 Troubleshooting
