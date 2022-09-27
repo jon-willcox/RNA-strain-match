@@ -28,20 +28,29 @@ The file "config.sh" can be used a template configuration file
 | dir  | path | $(pwd) | The path to this script on your local device |
 | bed  | file (including path) | ${dir}/strain-D2-SNPs.bed | A [bed](http://genome.ucsc.edu/FAQ/FAQformat#format1) file with the location of each SNP (start=end) |
 | pos | file (including path) | ${dir}/pos.txt | The first two columns of "bed" separated by a space instead of a tab |
-| snps | file (including path) | ${dir}/strain-D2-SNPs.txt | A matrix of genotype calls (0/0, 0/1, 1/1) for each SNP (rows) for each strain (cols) - see "SNP File" below for more details |
-| samtools | program | samtools | Command to call samtools (if samtools is in your $PATH variable, leave this as "samtools") |
-| Rscript | program | Rscript | Command to call samtools (if Rscript is in your $PATH variable, leave this as "Rscript") |
-| id | string | "" | The sample ID |
-| o | string | ${id}-strain | The output prefix |
+| snps | file (including path) | ${dir}/strain-D2-SNPs.txt | A matrix of genotype calls - see "SNP File" below for more details |
+| samtools | program | samtools | Command to call samtools (if samtools is in your PATH variable, leave this as "samtools") |
+| Rscript | program | Rscript | Command to call samtools (if Rscript is in your PATH variable, leave this as "Rscript") |
+| id | string | "" | Your sample ID |
+| o | string | ${id}-strain | Your output prefix |
 | keep | string | "" | Change to "true" to keep the per-SNP pileup data (file may be large) |
-| dp.cutoff | integer | 30 | A depth cutoff for considering a SNP useful |
-| alt.per | float | 0.05 | An alt allele fraction cutoff to consider the alt allele real |
+| dp_cut | integer | 30 | A read-depth cutoff for considering a SNP useful |
+| alt_per | float | 0.05 | An alt allele-fraction cutoff to consider the alt allele real |
 | f1 | string | "TRUE" | Data belongs to a strain in the SNP file (FALSE) or the F1-progeny of a strain in the SNP file (TRUE) |
-
+| threads | integer | 1 | The number of threads for computation |
 
 SNP File
 --------
 
+The SNP file ("snps" in the configuration file) is a tab-delimited file specifying the genotypes at each SNP for each strain, where "0/0" = REF/REF, "0/1" = "REF/ALT", and "1/1" = "ALT/ALT". The first six columns are the same as the first six columns in a [vcf](http://genome.ucsc.edu/goldenPath/help/vcf.html) file with headers:
+
+`X.CHROM	POS	ID	REF	ALT	QUAL`
+
+
+Troubleshooting
+---------------
+
+* Make sure the chromosomes in the bed and pos files match those in the alignment file (e.g. chr1, chr2, chr3 etc. vs. 1, 2, 3, etc.)
 
 References
 ----------
