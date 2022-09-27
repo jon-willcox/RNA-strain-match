@@ -13,7 +13,7 @@ Required Tools
 | [Samtools](https://www.htslib.org/) | 1.13 |
 | [Rscript](https://www.r-project.org/) | 4.0.4 |
 
-* This is the version we used; other versions may work as well
+\* This is the version we used; other versions may work as well
 
 Configuration File
 ------------------
