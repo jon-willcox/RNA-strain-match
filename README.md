@@ -8,12 +8,12 @@ It was originally developed to match data from B6 x BXD F1 mice to SNPs identifi
 Required Tools
 --------------
 
-| Tool | Version[^1] |
+| Tool | Version^*^ |
 | ---- | ---------- |
 | [Samtools](https://www.htslib.org/) | 1.13 |
 | [Rscript](https://www.r-project.org/) | 4.0.4 |
 
-[^1] This is the version we used; other versions may work as well
+* This is the version we used; other versions may work as well
 
 Configuration File
 ------------------
