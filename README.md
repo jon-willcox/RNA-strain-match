@@ -62,11 +62,9 @@ chr1	3214941	.	A	T	94336	1/1	0/0	...	0/0	chr1_3214941
 
 The "VAR" column should match the format "X.CHROM_POS".
 
-*For BXD Mouse Strains*
-The attached file, strain-D2-SNPs.txt, should work!  
+**For BXD Mouse Strains** The attached file, strain-D2-SNPs.txt, should work!  
 
-*For Other Strains*
-An SNP File can be generated from a vcf file with strain genotypes using [bcftools](https://samtools.github.io/bcftools/bcftools.html) and the following commands:
+**For Other Strains** An SNP File can be generated from a vcf file with strain genotypes using [bcftools](https://samtools.github.io/bcftools/bcftools.html) and the following commands:
 
 ```
 bcftools view strains.vcf.gz -i 'TYPE="snp"' |  grep -v ^## > strain-SNPs.txt
@@ -90,7 +88,15 @@ snps$VAR <- paste(sep = "_",snps$X.CHROM,snps$POS)
 
 write.table(snps, "strain-SNPs.txt", sep="\t", quote=F, col.names=T, row.names=F)
 ```
+The bed and pos files can then be generated with:
 
+```
+awk 'BEGIN{OFS="\t"}{FS="\t"}{print $1,$2,$2}' strain-SNPs.txt | tail -n +2 > strain-SNPs.bed
+
+cut -f1-2 strain-SNPs.bed | sed "s/\t/ /g" | sed "s/chr//g" > pos.txt
+```
+
+Note: You may want to include additional filters in the bcftools step (e.g. only include vars in protein-coding regions, call-quality filters, etc.).
 
 
 Troubleshooting
