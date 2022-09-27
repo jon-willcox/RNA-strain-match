@@ -62,12 +62,12 @@ chr1	3214941	.	A	T	94336	1/1	0/0	...	0/0	chr1_3214941
 
 The "VAR" column should match the format "X.CHROM_POS".
 
-**For BXD Mouse Strains** The attached file, strain-D2-SNPs.txt, should work!  
+**For BXD Mouse Strains** The attached file, *strain-D2-SNPs.txt*, should work!  
 
 **For Other Strains** An SNP File can be generated from a vcf file with strain genotypes using [bcftools](https://samtools.github.io/bcftools/bcftools.html) and the following commands:
 
 ```
-bcftools view strains.vcf.gz -i 'TYPE="snp"' |  grep -v ^## > strain-SNPs.txt
+bcftools view your-strains.vcf.gz -i 'TYPE="snp"' |  grep -v ^## > strain-SNPs.txt
 
 # Remove positions with multiple alt alleles
 grep -v "," strain-SNPs.txt > tmp; mv -f tmp strain-SNPs.txt
@@ -98,6 +98,22 @@ cut -f1-2 strain-SNPs.bed | sed "s/\t/ /g" | sed "s/chr//g" > pos.txt
 
 Note: You may want to include additional filters in the bcftools step (e.g. only include vars in protein-coding regions, call-quality filters, etc.).
 
+Execution
+---------
+
+Once the configuration file is set up, the script can be run as:
+
+`rna-strain-match -c config.sh`
+
+Using threads=4, a NucSeq bam file (~40G) took approximately 1.5h to run using 1e5 SNPs.
+
+To display script info, enter:
+
+`rna-strain-match -h` 
+
+To perform a dry run (non-zero exit for missing input, but no calculations performed), enter:
+
+`rna-strain-match -d -c config.sh`
 
 Troubleshooting
 ---------------
