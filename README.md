@@ -46,11 +46,15 @@ The SNP file ("snps" in the configuration file) is a tab-delimited file specifyi
 
 The first few lines should look something like:
 
-`X.CHROM	POS	ID	REF	ALT	QUAL	STRAIN_1	STRAIN_2	...	STRAIN_N	VAR
+```
+{
+X.CHROM	POS	ID	REF	ALT	QUAL	STRAIN_1	STRAIN_2	...	STRAIN_N	VAR
 chr1	3206491	.	G	C	72546.4	0/0	0/0	...	1/1	chr1_3206491
 chr1	3213844	.	G	A	68282.1	0/1	1/1	...	0/0	chr1_3213844
 chr1	3214941	.	A	T	94336	1/1	0/0	...	0/0	chr1_3214941
-...`
+...
+}
+```
 
 The variant ID (VAR) should match the format "X.CHROM_POS".
 
