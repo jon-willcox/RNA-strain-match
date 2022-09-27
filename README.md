@@ -44,9 +44,9 @@ SNP File
 
 The SNP file ("snps" in the configuration file) is a tab-delimited file specifying the genotypes at each SNP for each strain, where 
 
-> "0/0" = REF/REF 
-> "0/1" = "REF/ALT" 
-> "1/1" = "ALT/ALT"
+> "0/0" = REF/REF<br />
+> "0/1" = REF/ALT<br />
+> "1/1" = ALT/ALT<br />
  
 The columns are: the first six columns in a [vcf](http://genome.ucsc.edu/goldenPath/help/vcf.html) file, followed by a column for each strain and a column with the variant ID. 
 
