@@ -8,15 +8,18 @@ It was originally developed to match data from B6 x BXD F1 mice to SNPs identifi
 Required Tools
 --------------
 
-| Tool | Version[^*] |
+| Tool | Version[^1] |
 | ---- | ---------- |
-| (Samtools)[https://www.htslib.org/] | 1.13 |
-| (Rscript)[https://www.r-project.org/] | 4.0.4 |
+| [Samtools](https://www.htslib.org/) | 1.13 |
+| [Rscript](https://www.r-project.org/) | 4.0.4 |
 
-[^*] This is the version we used; other versions may work as well
+[^1] This is the version we used; other versions may work as well
+
+Configuration File
+------------------
 
 
 
 References
 ----------
-1. D. G. Ashbrook, D. Arends, P. Prins, M. K. Mulligan, S. Roy, E. G. Williams, C. M. Lutz, A. Valenzuela, C. J. Bohl, J. F. Ingles, M. S. McCarty, A. G. Centeno, R. Hager, J. Auwerx, L. Lu, R. W. Williams "A platform for experimental precision medicine: The extended BXD mouse family" Cell Syst 2021, 12:3, 235-247
+1. D. G. Ashbrook, D. Arends, P. Prins, M. K. Mulligan, S. Roy, E. G. Williams, C. M. Lutz, A. Valenzuela, C. J. Bohl, J. F. Ingles, M. S. McCarty, A. G. Centeno, R. Hager, J. Auwerx, L. Lu, R. W. Williams "A platform for experimental precision medicine: The extended BXD mouse family" *Cell Syst* **2021**, 12:3, 235-247
