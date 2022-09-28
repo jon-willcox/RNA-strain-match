@@ -134,13 +134,15 @@ All output can be found in a directory named with the output prefix specified in
 
 The main output is a file ending in "-strains.txt" with columns:
 
-> **strain**: each strain in the SNP file <br />
-> **ALT**: the number of ALT allele matches <br />
-> **ALT.mismatch**: the number of SNPs that are ALT in the RNA data, but REF in the SNP file <br />
-> **REF**: the number of REF allele matches <br />
-> **REF.mismatch**: the number of SNPs that are REF in the RNA data, but ALT in the SNP file <br />
-> **total**: the total number of useable SNPs for the strain <br />
-> **match**: the percentage of SNPs that match
+| Column Name | Description |
+| ----------- | ----------- |
+| strain | each strain in the SNP file |
+| ALT | the number of ALT allele matches |
+| ALT.mismatch | the number of SNPs that are ALT in the RNA data, but REF in the SNP file |
+| REF | the number of REF allele matches |
+| REF.mismatch | the number of SNPs that are REF in the RNA data, but ALT in the SNP file |
+| total | the total number of useable SNPs for the strain |
+| match | the percentage of SNPs that match |
 
 Additionally, if "keep=true" in the configuration file, a file, "all-nuc.txt" that includes the base pileup at each SNP will be kept in the output directory.
 
