@@ -3,7 +3,7 @@ RNA Strain-Match
 
 RNA Strain-Match uses known coding SNPs from strains to match bulk, single-cell, or nuclear RNA sequencing data to its appropriate strain. Calculations are perfomed using the presence or absence of alternate alleles in RNA data and do not consider homozygosity vs. heterozygosity.
 
-It was originally developed to match data from B6 x BXD F1 mice to SNPs identified in the paternal BXD strain (Ashbrook 2021), but can be applied broadly to match RNA data to an appropriate strain.
+This script was originally developed in the Kaczorowski Lab at The Jackson Laboratory to match data from B6 x BXD F1 mice to SNPs identified in the paternal BXD strain (Ashbrook 2021), but can be applied broadly to match RNA data to an appropriate strain.
 
 Required Tools
 --------------
