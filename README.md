@@ -159,6 +159,7 @@ Troubleshooting
 ---------------
 
 * Make sure the chromosomes in the bed and pos files match those in the alignment (BAM) file (e.g. chr1, chr2, chr3 etc. vs. 1, 2, 3, etc.)
+* If the percent match is lower than expected, it could be due to contamination. Increasing "alt_per" raises the ALT allele-fraction cutoff to consider the ALT allele present, and therefore reduces noise from contamination.
 
 References
 ----------
