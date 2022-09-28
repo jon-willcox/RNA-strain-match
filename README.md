@@ -116,7 +116,8 @@ Once the configuration file is set up, the script can be run as:
 
 `rna-strain-match -c config.sh`
 
-Using threads=4, a NucSeq bam file (~40G) took approximately 1.5h to run using 1e5 SNPs.
+> **Note**
+> Using threads=4, a NucSeq bam file (~40G) took approximately 1.5h to run using 1e5 SNPs.
 
 To display script info, enter:
 
