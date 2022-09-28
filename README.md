@@ -72,10 +72,12 @@ The "VAR" column should match the format "X.CHROM_POS".
 * Standard Variant-Call Quality Filters
 * Limit to coding regions
 
+### Building a SNPs File
+
 > **Note**
 > **For BXD mouse strains you can use the attached file, *strain-D2-SNPs.txt*!**
 
-**For Other Strains** An SNP File can be generated from a vcf file with strain genotypes using [bcftools](https://samtools.github.io/bcftools/bcftools.html) and the following commands:
+For other strains, a SNP File can be generated from a vcf file with strain genotypes using [bcftools](https://samtools.github.io/bcftools/bcftools.html) and the following commands:
 
 ```
 bcftools view your-strains.vcf.gz -i 'TYPE="snp"' |  grep -v ^## > strain-SNPs.txt
