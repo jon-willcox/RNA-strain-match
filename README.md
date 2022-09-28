@@ -62,6 +62,14 @@ chr1	3214941	.	A	T	94336	1/1	0/0	...	0/0	chr1_3214941
 
 The "VAR" column should match the format "X.CHROM_POS".
 
+**Required Variant Filters:**
+> SNPs only<br />
+> Only one ALT allele<br />
+
+**Suggested Filters:**
+> Standard Variant-Call Quality Filters<br />
+> Limit to coding regions<br />
+
 **For BXD Mouse Strains** The attached file, *strain-D2-SNPs.txt*, should work!  
 
 **For Other Strains** An SNP File can be generated from a vcf file with strain genotypes using [bcftools](https://samtools.github.io/bcftools/bcftools.html) and the following commands:
@@ -95,8 +103,6 @@ awk 'BEGIN{OFS="\t"}{FS="\t"}{print $1,$2,$2}' strain-SNPs.txt | tail -n +2 > st
 
 cut -f1-2 strain-SNPs.bed | sed "s/\t/ /g" | sed "s/chr//g" > pos.txt
 ```
-
-Note: You may want to include additional filters in the bcftools step (e.g. only include vars in protein-coding regions, call-quality filters, etc.).
 
 Execution
 ---------
