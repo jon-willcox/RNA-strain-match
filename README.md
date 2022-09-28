@@ -150,7 +150,7 @@ Additionally, if "keep=true" in the configuration file, a file, "all-nuc.txt" th
 Troubleshooting
 ---------------
 
-* Make sure the chromosomes in the bed and pos files match those in the alignment file (e.g. chr1, chr2, chr3 etc. vs. 1, 2, 3, etc.)
+* Make sure the chromosomes in the bed and pos files match those in the alignment (BAM) file (e.g. chr1, chr2, chr3 etc. vs. 1, 2, 3, etc.)
 
 References
 ----------
