@@ -71,7 +71,7 @@ The "VAR" column should match the format "X.CHROM_POS".
 > Limit to coding regions<br />
 
 > **Note**
-> For BXD mouse strains you can use the attached file, *strain-D2-SNPs.txt*!
+> **For BXD mouse strains you can use the attached file, *strain-D2-SNPs.txt*!**
 
 **For Other Strains** An SNP File can be generated from a vcf file with strain genotypes using [bcftools](https://samtools.github.io/bcftools/bcftools.html) and the following commands:
 
