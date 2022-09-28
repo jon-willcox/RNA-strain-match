@@ -44,9 +44,9 @@ SNP File
 
 The SNP file ("snps" in the configuration file) is a tab-delimited file specifying the genotypes at each SNP for each strain, where 
 
-> "0/0" = REF/REF<br />
-> "0/1" = REF/ALT<br />
-> "1/1" = ALT/ALT<br />
+* "0/0" = REF/REF
+* "0/1" = REF/ALT
+* "1/1" = ALT/ALT
  
 The columns are: the first six columns in a [vcf](http://genome.ucsc.edu/goldenPath/help/vcf.html) file, followed by a column for each strain and a column with the variant ID. 
 
@@ -62,13 +62,15 @@ chr1	3214941	.	A	T	94336	1/1	0/0	...	0/0	chr1_3214941
 
 The "VAR" column should match the format "X.CHROM_POS".
 
-**Required Variant Filters:**
-> SNPs only<br />
-> Only one ALT allele<br />
+### Variant Filters
 
-**Suggested Filters:**
-> Standard Variant-Call Quality Filters<br />
-> Limit to coding regions<br />
+**Required:**
+* SNPs only
+* Only one ALT allele
+
+**Suggested:**
+* Standard Variant-Call Quality Filters
+* Limit to coding regions
 
 > **Note**
 > **For BXD mouse strains you can use the attached file, *strain-D2-SNPs.txt*!**
