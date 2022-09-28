@@ -147,7 +147,7 @@ The main output is a file ending in "-strains.txt" with columns:
 Additionally, if "keep=true" in the configuration file, a file, "all-nuc.txt" that includes the base pileup at each SNP will be kept in the output directory.
 
 > **Note**
-> If set "keep=true" then you can redo the calculations with different cutoffs by editing the cutoffs in the config.sh file and running the following:
+> If you set "keep=true" then you can redo the calculations with different cutoffs by editing the cutoffs in the config.sh file and running the following:
 
 ```
 source config.sh
