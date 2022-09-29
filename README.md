@@ -35,7 +35,7 @@ The file "config.sh" can be used a template configuration file
 | o | string | ${id}-strain | Your output prefix |
 | keep | string | "" | Change to "true" to keep the per-SNP pileup data (file may be large) |
 | dp_cut | integer | 30 | A read-depth cutoff for considering a SNP useful |
-| alt_per | float | 0.05 | An alt allele-fraction cutoff to consider the alt allele real |
+| af_cut | float | 0.05 | An alt allele-fraction cutoff to consider the alt allele real |
 | f1 | string | "TRUE" | Data belongs to a strain in the SNP file (FALSE) or the F1-progeny of a strain in the SNP file (TRUE) |
 | threads | integer | 1 | The number of threads for computation |
 
@@ -151,7 +151,7 @@ Additionally, if "keep=true" in the configuration file, a file, "all-nuc.txt" th
 
 ```
 source config.sh
-$Rscript ${dir}/match-strains.R ${o}/all-nuc.txt ${o}/${id} $snps $dp_cut $alt_per $f1
+$Rscript ${dir}/match-strains.R ${o}/all-nuc.txt ${o}/${id} $snps $dp_cut $af_cut $f1
 ```
 
 
@@ -159,7 +159,7 @@ Troubleshooting
 ---------------
 
 * Make sure the chromosomes in the bed and pos files match those in the alignment (BAM) file (e.g. chr1, chr2, chr3 etc. vs. 1, 2, 3, etc.)
-* If the percent match is lower than expected, it could be due to contamination. Increasing "alt_per" raises the ALT allele-fraction cutoff to consider the ALT allele present, and therefore reduces noise from contamination.
+* If the percent match is lower than expected, it could be due to contamination. Increasing "af_cut" raises the ALT allele-fraction cutoff to consider the ALT allele present, and therefore reduces noise from contamination.
 
 References
 ----------
