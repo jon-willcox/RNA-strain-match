@@ -1,0 +1,145 @@
+#!/bin/bash
+
+### USAGE
+
+print_usage() {
+  printf "
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  rna-strain-match 09/13/22
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  author: willcj
+  contact: jon.willcox@jax.org
+
+  GitHub:
+  https://github.com/jon-willcox/RNA-strain-match
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Programs Used:
+
+  samtools 1.13
+  R 4.0.4
+
+  Required Files:
+
+  - a configuration file (e.g. config.sh)
+  - match-strains.R
+  - a bed file of strain vars
+  - a pos file of strain vars
+  - a SNP file of vars by strain
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ DESCRIPTION:
+  Compare RNA data to SNP data to match RNAseq 
+   to a genotype. This script was developed for
+   matching B6 x BXD mouse NucSeq data to the 
+   correct paternal BXD strain.
+
+  Returns a directory w/ a list of strains and the
+   percent of informative variants that match.
+
+  Takes on the order of 1.5h for NucSeq data bam
+   files of about 40G (threads=4) 
+
+ INPUT:
+  A configuration file 
+
+ OUTPUT:
+  <OUTNAME>/<ID>-strains.txt  
+   
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Flags:
+
+  -c (arg, required)	configuration file
+
+  -d			dry run 
+  -h			print usage
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+"
+}
+
+### Get Arguments
+
+config=""
+dry=""
+
+
+while getopts 'c:dh' flag; do
+  case "${flag}" in
+   c) config="${OPTARG}" ;;
+   d) dry=TRUE ;;
+   h) print_usage ; exit ;;
+   *) print_usage
+      exit 1 ;;
+  esac
+done
+
+### Catch Errors
+
+if [ ! -s "$config" ] ; then
+  print_usage
+  echo "ERROR: configuration file \"${config}\" does not exist! Please enter a new configuration file."
+  exit 1
+fi
+
+source $config
+
+if [ -z $id ] ; then
+  print_usage
+  echo "ERROR: id missing in configuration file! Please enter a sample id."
+  exit 1
+elif [ ! -s "$bam" ] ; then
+  print_usage
+  echo "ERROR: $bam does not exist! Please enter a new NucSeq bam file."
+  exit 1
+fi
+
+mkdir $o
+
+echo "Output can be found in ${o}/"
+
+if [ -n "$dry" ]; then
+  echo "$0 $@"
+  exit 0
+fi
+
+### Perform Script operations
+
+# Extract regions from bam file
+
+echo "Extracting regions from bam..."
+
+$samtools view -@ $threads -bh -L $bed $bam > ${o}/${id}-pc.bam
+$samtools index ${o}/${id}-pc.bam
+
+# Get allele pileup
+
+echo "Getting allele pileup..."
+
+$samtools mpileup -aARx -l $pos ${o}/${id}-pc.bam > ${o}/pileup.txt
+sort -g ${o}/pileup.txt > ${o}/tmp ; mv -f ${o}/tmp ${o}/pileup.txt
+
+# Generate raw output file
+cut -f1-5 $snps | sed "s/^chr//g" | sort -g | sed "s/^[123456789]/chr&/g" > ${o}/all-nuc.txt
+cut -f5 ${o}/pileup.txt | sed "1 i base_pileup" | sed "s/\"//g" | paste ${o}/all-nuc.txt - > ${o}/tmp; mv -f ${o}/tmp ${o}/all-nuc.txt
+
+# Parse, format, and filter data
+
+echo "Parsing, formatting, and filtering data..."
+
+$Rscript ${dir}/match-strains.R ${o}/all-nuc.txt ${o}/${id} $snps $dp_cut $af_cut $f1
+
+if [ -z $keep ] ; then
+  rm ${o}/all-nuc.txt
+fi
+
+rm ${o}/${id}-pc.bam* ${o}/pileup.txt
+
