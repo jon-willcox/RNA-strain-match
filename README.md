@@ -75,7 +75,7 @@ The "VAR" column should match the format "X.CHROM_POS".
 ### Building a SNPs File
 
 > **Note**
-> For BXD mouse strains you can use the attached file, *strain-D2-SNPs.txt*!
+> For BXD mouse strains you can use the attached file, *strain-D2-SNPs.txt*, along with *strain-D2-SNPs.bed* and *pos.txt*!
 
 For other strains, a SNP File can be generated from a vcf file with strain genotypes using [bcftools](https://samtools.github.io/bcftools/bcftools.html) and the following commands:
 
