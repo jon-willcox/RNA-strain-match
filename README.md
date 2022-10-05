@@ -159,8 +159,9 @@ Troubleshooting
 ---------------
 
 * Make sure the chromosomes in the bed and pos files match those in the alignment (BAM) file (e.g. chr1, chr2, chr3 etc. vs. 1, 2, 3, etc.)
-* If the percent match is lower than expected, it could be due to contamination. Increasing "af_cut" raises the ALT allele-fraction cutoff to consider the ALT allele present, and therefore reduces noise from contamination.
+* **Contamination**: If the percent match is lower than expected, it could be due to contamination. Increasing "af_cut" raises the ALT allele-fraction cutoff to consider the ALT allele present, and therefore reduces noise from contamination. For downstream analysis, you may want to consider using a tool like [Soup-X](https://github.com/constantAmateur/SoupX) to remove cell-free mRNA. (Young 2018)
 
 References
 ----------
-1. D. G. Ashbrook, T. Sasani, M. Maksimov, M. H. Gunturkun, N. Ma, F. Villani, Y. Ren, D. Rothschild, H. Chen, L. Lu, V. Colonna, B. Dumont, K. Harris, M. Gymrek, J. K. Pritchard, A. A. Palmer, R. W. Williams "Private and sub-family specific mutations of founder haplotypes in the BXD family reveal phenotypic consequences relevant to health and disease" *bioRxiv* **2022**, doi: https://doi.org/10.1101/2022.04.21.489063
+1. D. G. Ashbrook, T. Sasani, M. Maksimov, M. H. Gunturkun, N. Ma, F. Villani, Y. Ren, D. Rothschild, H. Chen, L. Lu, V. Colonna, B. Dumont, K. Harris, M. Gymrek, J. K. Pritchard, A. A. Palmer, R. W. Williams "Private and sub-family specific mutations of founder haplotypes in the BXD family reveal phenotypic consequences relevant to health and disease" *bioRxiv* **2022**; doi: https://doi.org/10.1101/2022.04.21.489063
+2. M. D. Young, S. Behjati "SoupX removes ambient RNA contamination from droplet based single cell RNA sequencing data" *bioRxiv* **2018**; doi: https://doi.org/10.1101/303727
