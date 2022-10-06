@@ -52,26 +52,26 @@ all.nuc$ALT.percent <- as.numeric(sapply(all.nuc$base_pileup, function(x) nchar(
 # Using a cutoff of 0.05 for ALT.percent allows for some contamination
 
 vars=c()
-vars[all.nuc$VAR[all.nuc$dp > dp.cutoff & all.nuc$ALT.percent >= alt.percent]] <- "D"
-vars[all.nuc$VAR[all.nuc$dp > dp.cutoff & all.nuc$ALT.percent == 0]] <- "B"
+vars[all.nuc$VAR[all.nuc$dp > dp.cutoff & all.nuc$ALT.percent >= alt.percent]] <- "ALT"
+vars[all.nuc$VAR[all.nuc$dp > dp.cutoff & all.nuc$ALT.percent == 0]] <- "REF"
 
 
 var.match <- data.frame(stringsAsFactors=F, "VAR"=names(vars), "CALL"=vars)
 var.match$PILEUP <- as.character(sapply(var.match$VAR, function(x) all.nuc$base_pileup[all.nuc$VAR == x]))
 var.match$DP <- as.character(sapply(var.match$VAR, function(x) all.nuc$dp[all.nuc$VAR == x]))
-var.match$ALT.PERCENT <- as.character(sapply(var.match$VAR, function(x) all.nuc$ALT.percent[all.nuc$VAR == x]))
+var.match$AF <- as.character(sapply(var.match$VAR, function(x) all.nuc$ALT.percent[all.nuc$VAR == x]))
 
 # Get the genotype for the assigned strain
 var.match$ASSIGNED.STRAIN <- as.character(sapply(var.match$VAR, function(x) snps[snps$VAR == x,strain]))
 
 # Check for matches
-var.match$match <- T
-var.match$match[var.match$CALL == "D" & var.match$ASSIGNED.STRAIN == "0/0"] <- F
+var.match$MATCH <- T
+var.match$MATCH[var.match$CALL == "ALT" & var.match$ASSIGNED.STRAIN == "0/0"] <- F
 
 if(f1){
-  var.match$match[var.match$CALL == "B" & var.match$ASSIGNED.STRAIN == "1/1"] <- F
+  var.match$MATCH[var.match$CALL == "REF" & var.match$ASSIGNED.STRAIN == "1/1"] <- F
 }else{
-  var.match$match[var.match$CALL == "B" & var.match$ASSIGNED.STRAIN %in% c("1/1","0/1")] <- F
+  var.match$MATCH[var.match$CALL == "REF" & var.match$ASSIGNED.STRAIN %in% c("1/1","0/1")] <- F
 }
 
 write.table(var.match, file=paste(sep="-",args[2], "var-matches.txt"), quote = F, sep = "\t", col.names = T, row.names = F)
