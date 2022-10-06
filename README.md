@@ -33,7 +33,9 @@ The file "config.sh" can be used a template configuration file
 | Rscript | program | Rscript | Command to call samtools (if Rscript is in your PATH variable, leave this as "Rscript") |
 | id | string | "" | Your sample ID |
 | o | string | ${id}-strain | Your output prefix |
-| keep | string | "" | Change to "true" to keep the per-SNP pileup data (file may be large) |
+| keep | logical | "" | Change to "true" to keep the per-SNP pileup data (file may be large) |
+| varMatch | logical | "" | Change to "true" to output a file with variant-level sample/strain information (requires strain) |
+| strain | string | "" | The strain to compare to for the varMatch option (must be present in SNP File) | 
 | dp_cut | integer | 30 | A read-depth cutoff for considering a SNP useful |
 | af_cut | float | 0.05 | An alt allele-fraction cutoff to consider the alt allele real |
 | f1 | string | "TRUE" | Data belongs to a strain in the SNP file (FALSE) or the F1-progeny of a strain in the SNP file (TRUE) |
@@ -144,7 +146,19 @@ The main output is a file ending in "-strains.txt" with columns:
 | total | the total number of useable SNPs for the strain |
 | match | the percentage of SNPs that match |
 
-Additionally, if "keep=true" in the configuration file, a file, "all-nuc.txt" that includes the base pileup at each SNP will be kept in the output directory.
+If "keep=true" in the configuration file, a file, "all-nuc.txt," that includes the base pileup at each SNP will be kept in the output directory.
+
+If "varMatch=true" in the configuration file and a strain is provided, a file ending in "-var-matches.txt" that includes variant-level matches between the sample and the strain with columns:
+
+| Column Name | Description |
+| ----------- | ----------- |
+| VAR | variant ID |
+| CALL | the genotype call for the sample ("REF" means no ALT allele was present; "ALT" means ALT allele was present above af_cut) |
+| PILEUP | all alleles present at this site ("B"="REF", "D"="ALT") | 
+| DP | the depth at this site |
+| AF | the alt allele fraction at this site | 
+| ASSIGNED.STRAIN | the genotype for the assigned strain (0/0, 0/1, 1/1) |
+| MATCH | TRUE if the sample matches the strain, FALSE if it does not |
 
 > **Note**
 > If you set "keep=true" then you can redo the calculations with different cutoffs by editing the cutoffs in the config.sh file and running the following:
