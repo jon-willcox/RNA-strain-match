@@ -148,6 +148,14 @@ The main output is a file ending in "-strains.txt" with columns:
 
 If "keep=true" in the configuration file, a file, "all-nuc.txt," that includes the base pileup at each SNP will be kept in the output directory.
 
+> **Note**
+> If you set "keep=true" then you can redo the calculations with different cutoffs by editing the cutoffs in the config.sh file and running the following:
+
+```
+source config.sh
+$Rscript ${dir}/match-strains.R ${o}/all-nuc.txt ${o}/${id} $snps $dp_cut $af_cut $f1
+```
+
 If "varMatch=true" in the configuration file and a strain is provided, a file ending in "-var-matches.txt" that includes variant-level matches between the sample and the strain with columns:
 
 | Column Name | Description |
@@ -160,13 +168,6 @@ If "varMatch=true" in the configuration file and a strain is provided, a file en
 | ASSIGNED.STRAIN | the genotype for the assigned strain (0/0, 0/1, 1/1) |
 | MATCH | TRUE if the sample matches the strain, FALSE if it does not |
 
-> **Note**
-> If you set "keep=true" then you can redo the calculations with different cutoffs by editing the cutoffs in the config.sh file and running the following:
-
-```
-source config.sh
-$Rscript ${dir}/match-strains.R ${o}/all-nuc.txt ${o}/${id} $snps $dp_cut $af_cut $f1
-```
 
 
 Troubleshooting
