@@ -37,6 +37,8 @@ Rscript=Rscript
 #  1. id: sample identifier
 #  2. o: output prefix
 #  3. keep: change to "true" to keep pileup output (file may be large)
+#  4. varMatch: output the vars and whether or not they match the given strain
+#  5. strain: strain to match (required with varMatch)
 #
 # analysis options
 # --------------
@@ -55,6 +57,8 @@ Rscript=Rscript
 id=""
 o=${id}-strain
 keep=""
+varMatch=""
+strain=""
 
 # analysis options
 
