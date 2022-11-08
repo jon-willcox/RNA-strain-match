@@ -85,7 +85,7 @@ For other strains, a SNP File can be generated from a vcf file with strain genot
 bcftools view your-strains.vcf.gz -i 'TYPE="snp"' |  grep -v ^## > strain-SNPs.txt
 
 # Remove positions with multiple alt alleles
-grep -v "," strain-SNPs.txt > tmp; mv -f tmp strain-SNPs.txt
+awk '$5!~","{print $0}' strain-SNPs.txt > tmp; mv -f tmp strain-SNPs.txt
 ```
 
 followed by formatting in R:
