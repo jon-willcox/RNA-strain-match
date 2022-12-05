@@ -26,6 +26,13 @@ Flags
 | -d   | - | dry run |
 | -h   | - | print help |
 
+> **Note**
+> To run multiple samples, we suggest generating a tab-delimeted text file, samples.txt,  where col1=ID and col2=bam. Then all files can be run with a while loop:
+```
+cat samples.txt | while read i j ; do rna-strain-match -c config.sh -i $i -b $j ; done
+```
+
+
 Configuration File
 ------------------
 
