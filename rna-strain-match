@@ -56,6 +56,9 @@ print_usage() {
 
   -c (arg, required)	configuration file
 
+  -i (arg, optional)	id
+  -b (arg, optional)	bam
+
   -d			dry run 
   -h			print usage
 
@@ -70,11 +73,14 @@ print_usage() {
 
 config=""
 dry=""
+id1=""
+bam1=""
 
-
-while getopts 'c:dh' flag; do
+while getopts 'c:i:b:dh' flag; do
   case "${flag}" in
    c) config="${OPTARG}" ;;
+   i) id1="${OPTARG}" ;;
+   b) bam1="${OPTARG}" ;;
    d) dry=TRUE ;;
    h) print_usage ; exit ;;
    *) print_usage
@@ -92,11 +98,20 @@ fi
 
 source $config
 
-if [ -z $id ] ; then
+if [ -n "$id1" ] ; then 
+  id=$id1 
+  o=${id}-strain
+fi
+
+if [ -n "$bam1" ] ; then
+  bam=$bam1
+fi
+
+if [ -z $id ]; then
   print_usage
   echo "ERROR: id missing in configuration file! Please enter a sample id."
   exit 1
-elif [ ! -s "$bam" ] ; then
+elif [ ! -s "$bam" ]; then
   print_usage
   echo "ERROR: $bam does not exist! Please enter a new NucSeq bam file."
   exit 1

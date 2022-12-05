@@ -15,6 +15,17 @@ Required Tools
 
 \* This is the version we used; other versions may work as well
 
+Flags
+-----
+
+| Flag | Argument | Function |
+| ---- | -------- | -------- |
+| -c   | configuration file | specifies run parameters |
+| -i   | id | sample ID (overrides config file) |
+| -b   | bam | bam file (overrides config file) |
+| -d   | - | dry run |
+| -h   | - | print help |
+
 Configuration File
 ------------------
 
