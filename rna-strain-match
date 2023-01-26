@@ -129,12 +129,12 @@ elif [ ! -s "$bed" ] ; then
   exit 1
 fi
 
-if [[ $varMatch == "true" || $varMatch == "t" ]] && [ -z $strain ]; then
+if [[ ${varMatch,,} == "true" || ${varMatch,,} == "t" ]] && [ -z $strain ]; then
   print_usage
-  echo "ERROR: no strain provided - varMatch requires a strain to compare to!"
+  echo "ERROR: no strain provided - varMatch requires a strain to compare to."
   echo "Please enter a strain in the configuration file"
   exit 1
-elif [[ $varMatch == "true" || $varMatch == "t" ]] && [ -z $(head -n1 $snps | grep -ow $strain) ]; then
+elif [[ ${varMatch,,} == "true" || ${varMatch,,} == "t" ]] && [ -z $(head -n1 $snps | grep -ow $strain) ]; then
   print_usage
   echo "ERROR: provided strain, $strain, is not in genotype matrix file, $snps"
   exit 1
@@ -175,11 +175,11 @@ echo "Parsing, formatting, and filtering data..."
 
 $Rscript ${dir}/match-strains.R ${o}/all-nuc.txt ${o}/${id} $snps $dp_cut $af_cut $f1
 
-if [ -z $varMatch ]; then
+if [[ ${varMatch,,} == "true" || ${varMatch,,} == "t" ]]; then
   $Rscript ${dir}/var-matching.R ${o}/all-nuc.txt ${o}/${id} $snps $strain $dp_cut $af_cut $f1
 fi
 
-if [[ $keep != "true" && $keep != "t" ]] ; then
+if [[ ${keep,,} != "true" && ${keep,,} != "t" ]] ; then
   rm ${o}/all-nuc.txt
 fi
 
