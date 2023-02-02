@@ -163,7 +163,7 @@ $samtools index ${o}/${id}-pc.bam
 echo "Getting allele pileup..."
 
 $samtools mpileup -aARx -l $pos ${o}/${id}-pc.bam > ${o}/pileup.txt
-sort -g ${o}/pileup.txt > ${o}/tmp ; mv -f ${o}/tmp ${o}/pileup.txt
+sed "s/^chr//g" ${o}/pileup.txt | sort -g > ${o}/tmp ; mv -f ${o}/tmp ${o}/pileup.txt
 
 # Generate raw output file
 cut -f1-5 $snps | sed "s/^chr//g" | sort -g | sed "s/^[123456789]/chr&/g" > ${o}/all-nuc.txt
