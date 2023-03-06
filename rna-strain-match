@@ -166,7 +166,7 @@ $samtools mpileup -aARx -l $pos ${o}/${id}-pc.bam > ${o}/pileup.txt
 sed "s/^chr//g" ${o}/pileup.txt | sort -g > ${o}/tmp ; mv -f ${o}/tmp ${o}/pileup.txt
 
 # Generate raw output file
-cut -f1-5 $snps | sed "s/^chr//g" | sort -g | sed "s/^[123456789]/chr&/g" > ${o}/all-nuc.txt
+tail -n+2 $snps | cut -f1-5 | sed "s/^chr//g" | sort -g | sed "s/^/chr&/g" | sed "1 i $(head -n1 $snps)" > ${o}/all-nuc.txt
 cut -f5 ${o}/pileup.txt | sed "1 i base_pileup" | sed "s/\"//g" | paste ${o}/all-nuc.txt - > ${o}/tmp; mv -f ${o}/tmp ${o}/all-nuc.txt
 
 # Parse, format, and filter data
